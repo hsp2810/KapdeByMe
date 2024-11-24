@@ -14,6 +14,7 @@ import { ProductCardCartProps } from "@/types";
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
+import ProductDiscountBadge from "../products/product-discount-badge";
 
 export default function CartProductCard({
   className,
@@ -61,7 +62,10 @@ export default function CartProductCard({
         />
       </CardHeader>
       <CardContent className='grid gap-2 p-0'>
-        <p className='text-xl font-semibold'>{title}</p>
+        <div className='flex items-center justify-between'>
+          <p className='text-xl font-semibold'>{title}</p>
+          <ProductDiscountBadge original={price} discounted={discountedPrice} />
+        </div>
         <p className='text-secondary-foreground h-[50px]'>{description}</p>
         <p className='text-secondary-foreground font-bold text-2xl'>
           ${discountedPrice}
@@ -73,7 +77,7 @@ export default function CartProductCard({
       <CardFooter className='p-0 py-3 gap-2'>
         <Button
           variant={"common"}
-          className='w-full'
+          className='w-full rounded-full'
           onClick={() => handleUpdateProductCount(product.product.id, true)}
         >
           <Plus className='h-4 w-4' />
@@ -88,7 +92,7 @@ export default function CartProductCard({
         </p>
         <Button
           variant={"common"}
-          className='w-full'
+          className='w-full rounded-full'
           onClick={() => handleUpdateProductCount(product.product.id, false)}
         >
           <Minus className='h-4 w-4' />
