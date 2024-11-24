@@ -33,17 +33,14 @@ export default function Navbar() {
 
   return (
     <main
-      className={`flex justify-around bg-zinc-300 rounded-lg text-zinc-800 py-5 transition-all duration-300 ${
+      className={`flex justify-around items-center bg-zinc-300 rounded-lg text-zinc-800 py-5 transition-all duration-300 ${
         isScrolled
           ? "fixed w-full z-[999] shadow-lg bg-opacity-90"
           : "shadow-none bg-opacity-100"
       }`}
     >
-      <Link
-        href={"/"}
-        className='text-xl font-bold uppercase flex items-center gap-1'
-      >
-        <Store /> <span className='hidden lg:block'>Harshit Merchandise</span>
+      <Link href={"/"} className='text-xl font-bold flex items-center gap-1'>
+        <Store /> <span className='hidden lg:block'>KapdeByMe</span>
       </Link>
 
       <ul className='flex items-center'>

@@ -4,6 +4,7 @@ import { Product } from "@/data";
 import ProductFilter from "./product-filter";
 import ProductCard from "./product-card";
 import { useState } from "react";
+import { SearchX } from "lucide-react";
 
 interface ProductsContainerProps {
   products: Product[];
@@ -24,9 +25,16 @@ export default function ProductsContainer({
         />
       </section>
       <section className='grid md:grid-cols-2 lg:grid-cols-3 lg:gap-10'>
-        {filteredProducts.map((product) => {
-          return <ProductCard key={product.id} product={product} />;
-        })}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => {
+            return <ProductCard key={product.id} product={product} />;
+          })
+        ) : (
+          <h2 className='flex items-center gap-1 text-zinc-600 font-semibold text-sm'>
+            <SearchX className='h-4 w-4' />
+            No products found
+          </h2>
+        )}
       </section>
     </section>
   );

@@ -78,10 +78,10 @@ export default function CartProductCard({
         >
           <Plus className='h-4 w-4' />
         </Button>
-        <p className='w-full text-center text-lg'>
+        <p className='w-full text-center text-lg font-semibold'>
           Q: {currentProductFromCart?.count}
         </p>{" "}
-        <p className='w-full text-center text-lg'>
+        <p className='w-full text-center text-lg font-semibold'>
           $
           {(currentProductFromCart?.count as number) *
             product.product.discountedPrice}

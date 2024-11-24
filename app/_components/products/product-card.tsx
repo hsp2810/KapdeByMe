@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -15,6 +15,7 @@ import { ProductCardProps } from "@/types";
 import useCart from "@/app/useCart";
 import { useEffect, useState } from "react";
 import { CartProductType } from "@/app/cart-context";
+import ProductDiscountBadge from "./product-discount-badge";
 
 export default function ProductCard({ className, product }: ProductCardProps) {
   const { title, description, price, discountedPrice, category } = product;
@@ -40,7 +41,16 @@ export default function ProductCard({ className, product }: ProductCardProps) {
       },
     ]);
     setTotalProductCount(totalProducts + 1);
-    localStorage.setItem("products", JSON.stringify([...products, product]));
+    localStorage.setItem(
+      "products",
+      JSON.stringify([
+        ...products,
+        {
+          count: 1,
+          product: product,
+        },
+      ])
+    );
   };
 
   const handleUpdateProductCount = (id: number, isIncrease: boolean) => {
@@ -77,19 +87,28 @@ export default function ProductCard({ className, product }: ProductCardProps) {
         />
       </CardHeader>
       <CardContent className='grid gap-1 lg:gap-3 px-3'>
-        <p className='text-xl font-semibold'>{title}</p>
+        <div className='flex items-center justify-between'>
+          <p className='text-xl font-semibold'>{title}</p>
+          <ProductDiscountBadge original={price} discounted={discountedPrice} />
+        </div>
         <p className='text-secondary-foreground h-[50px]'>{description}</p>
         <section className='flex justify-between items-center'>
           <p className='text-secondary-foreground font-bold text-2xl'>
             ${discountedPrice}
           </p>
           <div className='flex items-center gap-2'>
-            <p className='text-sm'>Available sizes</p>
+            <p className='text-xs'>Available sizes</p>
             <ul className='flex gap-2'>
-              <Button className='rounded-full' variant={"outline"}>
+              <Button
+                className='rounded-full font-semibold'
+                variant={"outline"}
+              >
                 S
               </Button>
-              <Button className='rounded-full' variant={"outline"}>
+              <Button
+                className='rounded-full font-semibold'
+                variant={"outline"}
+              >
                 M
               </Button>
             </ul>
@@ -109,10 +128,10 @@ export default function ProductCard({ className, product }: ProductCardProps) {
             >
               <Plus className='h-4 w-4' />
             </Button>
-            <p className='w-full text-center text-lg'>
+            <p className='w-full text-center text-lg font-semibold'>
               Q: {currentProductFromCart?.count}
             </p>{" "}
-            <p className='w-full text-center text-lg'>
+            <p className='w-full text-center text-lg font-semibold'>
               ${product.discountedPrice * currentProductFromCart?.count}
             </p>
             <Button
@@ -129,7 +148,7 @@ export default function ProductCard({ className, product }: ProductCardProps) {
             variant={"common"}
             onClick={() => handleAddToCart(product)}
           >
-            <ShoppingBag className='h-4 w-4' /> Add to cart
+            <ShoppingBag className='h-4 w-4' /> Add to bag
           </Button>
         )}
       </CardFooter>
